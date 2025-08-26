@@ -12,7 +12,7 @@ class _SavedScreenState extends State<SavedScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Saved"),
+        title: const Text("Saved"),
       ),
     );
   }

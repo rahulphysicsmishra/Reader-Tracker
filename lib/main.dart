@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reader_tracker/network/network.dart';
 import 'package:reader_tracker/pages/favorite_screen.dart';
 import 'package:reader_tracker/pages/saved_screen.dart';
 import 'package:reader_tracker/pages/home_screen.dart';
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.orangeAccent),
         useMaterial3: true,
       ),
-      home: MyHomePage(),
+      home: const MyHomePage(),
     );
   }
 }
@@ -49,11 +50,24 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _currentIndex = 0;
+
+  Network network = Network();
+  
+  Future<void> searchBooks(String query) async {
+    var books = await network.searchBooks(query);
+  }
   final List<Widget> _screens = [
-    HomeScreen(),
-    SavedScreen(),
-    FavoriteScreen(),
+    const HomeScreen(),
+    const SavedScreen(),
+    const FavoriteScreen(),
   ];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    searchBooks("Python");
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        items: <BottomNavigationBarItem>[
+        items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
         BottomNavigationBarItem(icon: Icon(Icons.book), label: "Books"),
         BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
