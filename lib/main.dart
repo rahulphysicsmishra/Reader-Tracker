@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reader_tracker/models/book.dart';
 import 'package:reader_tracker/network/network.dart';
 import 'package:reader_tracker/pages/favorite_screen.dart';
 import 'package:reader_tracker/pages/saved_screen.dart';
@@ -53,8 +54,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Network network = Network();
   
-  Future<void> searchBooks(String query) async {
-    var books = await network.searchBooks(query);
+  Future<void> _searchBooks(String query) async {
+    try {
+      List<Book> books = await network.searchBooks(query);
+      print("Books: ${books.toString()}");
+    } catch (e) {
+      
+    }
+    
   }
   final List<Widget> _screens = [
     const HomeScreen(),
@@ -65,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     // TODO: implement initState
-    searchBooks("Python");
+    _searchBooks("Python");
     super.initState();
   }
   @override
