@@ -52,29 +52,33 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _currentIndex = 0;
 
-  Network network = Network();
+  // Network network = Network();
+  // List <Book> _books = [];
   
-  Future<void> _searchBooks(String query) async {
-    try {
-      List<Book> books = await network.searchBooks(query);
-      print("Books: ${books.toString()}");
-    } catch (e) {
+  // Future<void> _searchBooks(String query) async {
+  //   try {
+  //     List<Book> books = await network.searchBooks(query);
+  //     //print("Books: ${books.toString()}");
+  //     setState(() {
+  //       _books = books;
+  //     });
+  //   } catch (e) {
       
-    }
+  //   }
     
-  }
+  // }
   final List<Widget> _screens = [
     const HomeScreen(),
     const SavedScreen(),
     const FavoriteScreen(),
   ];
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    _searchBooks("Python");
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   _searchBooks("Python");
+  //   super.initState();
+  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
