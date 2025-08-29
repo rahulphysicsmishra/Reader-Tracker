@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reader_tracker/models/book.dart';
 import 'package:reader_tracker/network/network.dart';
+import 'package:reader_tracker/pages/details_screen.dart';
 import 'package:reader_tracker/pages/favorite_screen.dart';
 import 'package:reader_tracker/pages/saved_screen.dart';
 import 'package:reader_tracker/pages/home_screen.dart';
@@ -37,6 +38,13 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.orangeAccent),
         useMaterial3: true,
       ),
+      initialRoute: '/',
+      routes: {
+        '/home': ((context) => const HomeScreen()),
+        '/saved': ((context) => const SavedScreen()),
+        '/favorites': ((context) => const FavoriteScreen()),
+        '/details': ((context) => const BookDetailsScreen()),
+      },
       home: const MyHomePage(),
     );
   }
@@ -52,33 +60,12 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _currentIndex = 0;
 
-  // Network network = Network();
-  // List <Book> _books = [];
-  
-  // Future<void> _searchBooks(String query) async {
-  //   try {
-  //     List<Book> books = await network.searchBooks(query);
-  //     //print("Books: ${books.toString()}");
-  //     setState(() {
-  //       _books = books;
-  //     });
-  //   } catch (e) {
-      
-  //   }
-    
-  // }
   final List<Widget> _screens = [
     const HomeScreen(),
     const SavedScreen(),
     const FavoriteScreen(),
   ];
 
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   _searchBooks("Python");
-  //   super.initState();
-  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

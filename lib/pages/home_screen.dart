@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:reader_tracker/models/book.dart';
 import 'package:reader_tracker/network/network.dart';
 import 'package:reader_tracker/pages/details_screen.dart';
+import 'package:reader_tracker/utils/book_details_arguments.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -55,6 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   childAspectRatio: 0.6,
                 ),
                 itemBuilder: (context, index) {
+                  Book book = _books[index];
                   return Container(
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey),
@@ -64,12 +66,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: GestureDetector(
                       onTap: () {
                         // Handle book tap, e.g., navigate to detail page
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const BookDetailsScreen(),
-                          ),
-                        );
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => const BookDetailsScreen(),
+                        //   ),
+                        // );
+                        Navigator.pushNamed(
+                          context, 
+                          '/details',
+                          arguments: BookDetailsArguments(itemBook: book)
+                          );
                       },
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -136,3 +143,4 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
