@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reader_tracker/models/book.dart';
 import 'package:reader_tracker/network/network.dart';
+import 'package:reader_tracker/pages/details_screen.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -60,45 +61,56 @@ class _HomeScreenState extends State<HomeScreen> {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     margin: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _books[index].imageLinks.containsKey('thumbnail') ? 
-                        Image.network(
-                          _books[index].imageLinks['thumbnail']!,
-                          height: 200,
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                        ) : Container(
-                          height: 150,
-                          color: Colors.grey,
-                          child: const Center(child: Text("No Image")),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            _books[index].title,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
+                    child: GestureDetector(
+                      onTap: () {
+                        // Handle book tap, e.g., navigate to detail page
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const BookDetailsScreen(),
+                          ),
+                        );
+                      },
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _books[index].imageLinks.containsKey('thumbnail') ? 
+                          Image.network(
+                            _books[index].imageLinks['thumbnail']!,
+                            height: 200,
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                          ) : Container(
+                            height: 150,
+                            color: Colors.grey,
+                            child: const Center(child: Text("No Image")),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              _books[index].title,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Text(
-                            _books[index].authors.isNotEmpty ? _books[index].authors.join(", ") : "Unknown Author",
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey,
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Text(
+                              _books[index].authors.isNotEmpty ? _books[index].authors.join(", ") : "Unknown Author",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontSize: 14,
+                                color: Colors.grey,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   );
                 }))
