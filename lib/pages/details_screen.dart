@@ -30,7 +30,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen> {
                   ),
                 ),
             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -77,8 +77,22 @@ class _BookDetailsScreenState extends State<BookDetailsScreen> {
                   ),
                   ),
                 ),
-                Padding(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                  ElevatedButton.icon(onPressed: (){}, icon: Icon(Icons.save), label: Text('Save')),
+                  ElevatedButton.icon(onPressed: (){}, icon: Icon(Icons.favorite), label:  Text('Favorite')),                  
+
+                  ]
+                ),
+                Container(
+                  margin: const EdgeInsets.all(12.0),
                   padding: const EdgeInsets.all(8.0),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.3),
+                    border: Border.all(color: Theme.of(context).colorScheme.secondary),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
                   child: Text(
                     book.description,
                     style: const TextStyle(fontSize: 16),
