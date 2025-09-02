@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:reader_tracker/models/book.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
@@ -42,5 +44,19 @@ class DatabaseHelper {
         infoLink TEXT,
         )
   ''');
+  }
+
+  Future<int> insert(Book book) async {
+    Database db = await instance.database;
+    return await db.insert(_tableName, book.toJson());
+  }
+
+  Future<List <Book>> readAllBooks() async {
+    Database db = await instance.database;
+    var books = await db.query(_tableName);
+    return books.isNotEmpty 
+    ? books.map((bookData) 
+    => Book.fromJsonDatabase(bookData)).toList() : [];
+
   }
 }
