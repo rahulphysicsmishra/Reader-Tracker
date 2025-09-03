@@ -41,7 +41,7 @@ class DatabaseHelper {
         language TEXT,
         imageLinks TEXT,
         previewLink TEXT,
-        infoLink TEXT,
+        infoLink TEXT
         )
   ''');
   }

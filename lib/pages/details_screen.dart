@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reader_tracker/db/database_helper.dart';
 import 'package:reader_tracker/models/book.dart';
 import 'package:reader_tracker/utils/book_details_arguments.dart';
 
@@ -80,8 +81,35 @@ class _BookDetailsScreenState extends State<BookDetailsScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                  ElevatedButton.icon(onPressed: (){}, icon: Icon(Icons.save), label: Text('Save')),
-                  ElevatedButton.icon(onPressed: (){}, icon: Icon(Icons.favorite), label:  Text('Favorite')),                  
+                  ElevatedButton.icon(onPressed: () async {
+                    try {
+                      int savedInt = await DatabaseHelper.instance.insert(book);
+                      SnackBar snackBar = SnackBar(
+                        content: Text("Book saved $savedInt"));
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    } catch (e) {
+                      print('Error saving book: $e');
+                    }
+                  }, 
+                  icon: Icon(Icons.save), 
+                  label: Text('Save')),
+                  ElevatedButton.icon(
+                    onPressed: () async{
+                      try {
+                        await DatabaseHelper.instance
+                        .readAllBooks()
+                        .then((value)=>{
+                          print('Books in DB: ${value.length}'),
+                          for (var book in value) {
+                            print('Book from DB: ${book.title}'),
+                          }
+                        });
+                      } catch (e) {
+                        
+                      }
+                    }, 
+                    icon: Icon(Icons.favorite), 
+                    label:  Text('Favorite')),                  
 
                   ]
                 ),
