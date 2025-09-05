@@ -95,18 +95,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen> {
                   label: Text('Save')),
                   ElevatedButton.icon(
                     onPressed: () async{
-                      try {
-                        await DatabaseHelper.instance
-                        .readAllBooks()
-                        .then((value)=>{
-                          print('Books in DB: ${value.length}'),
-                          for (var book in value) {
-                            print('Book from DB: ${book.title}'),
-                          }
-                        });
-                      } catch (e) {
-                        
-                      }
+                    
                     }, 
                     icon: Icon(Icons.favorite), 
                     label:  Text('Favorite')),                  

@@ -22,12 +22,26 @@ class _SavedScreenState extends State<SavedScreen> {
           itemCount: snapshot.data!.length,
           itemBuilder: (context, index) {
             final book = snapshot.data![index];
-            return ListTile(
-              leading: book.imageLinks.isNotEmpty
-                  ? Image.network(book.imageLinks['thumbnail'] ?? '')
-                  : null,
-              title: Text(book.title),
-              subtitle: Text(book.authors.isNotEmpty ? book.authors.join(', ') : 'Unknown Author'),
+            return Card(
+              child: ListTile(
+                leading: book.imageLinks.isNotEmpty
+                    ? Image.network(book.imageLinks['thumbnail'] ?? '')
+                    : null,
+                title: Text(book.title),
+                subtitle: Column(
+                  children: [
+                    Text(book.authors.isNotEmpty ? book.authors.join(', ') : 'Unknown Author'),
+                    ElevatedButton.icon(
+                      onPressed: () async {
+                         await DatabaseHelper.instance
+                          .toggleFavoriteStatus(book.id, book.isFavorite)
+                          .then((value)=>print("Item favored"));
+                      }, 
+                      icon: Icon(Icons.favorite),
+                      label: Text('Add to favorites'))
+                  ],
+                ),
+              ),
             );
           },
         ) : const Center(child: CircularProgressIndicator()),
